@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('quantity')->nullable();
-            $table->string('weight')->nullable();
+            $table->float('weight')->nullable();
             $table->date('expiring_date')->nullable();
             $table->timestamps();
         });

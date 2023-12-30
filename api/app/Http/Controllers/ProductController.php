@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\product\getAllProducts;
+use App\Actions\product\getProduct;
+use App\Actions\product\updateProduct;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -9,21 +14,13 @@ use App\Http\Requests\UpdateProductRequest;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param getAllProducts $allProducts
+     * @return ProductCollection
      */
-    public function index()
+    public function index(getAllProducts $allProducts):ProductCollection
     {
-        //
+        return ProductCollection::make($allProducts->execute());
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -33,34 +30,20 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @param Product $product
+     * @param getProduct $getProduct
+     * @return ProductResource
      */
-    public function show(Product $product)
+    public function edit(Product $product ,getProduct $getProduct):ProductResource
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
+       return ProductResource::make($getProduct->execute($product->id));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product,updateProduct $updateProduct)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        return $updateProduct->execute($product,$request->validated());
     }
 }
