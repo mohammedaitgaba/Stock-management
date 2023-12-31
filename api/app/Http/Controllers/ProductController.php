@@ -44,6 +44,9 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product,updateProduct $updateProduct)
     {
-        return $updateProduct->execute($product,$request->validated());
+        if ($updateProduct->execute($product,$request->validated())){
+            return response()->json(['message'=>'updated']);
+        }
+        return response()->json(['message'=>'an error happend']);
     }
 }
