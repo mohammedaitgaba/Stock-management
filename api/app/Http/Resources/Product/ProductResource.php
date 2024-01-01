@@ -21,7 +21,10 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'quantity'=>$this->quantity,
             'weight'=>$this->weight,
-            'expiring_date'=>$this->expiring_date
+            'expiring_date'=>$this->expiring_date,
+            'quantityInReciep' => $this->whenPivotLoaded('recipe_products', function () {
+                return $this->pivot->quantity;
+            }),
         ];
     }
 }

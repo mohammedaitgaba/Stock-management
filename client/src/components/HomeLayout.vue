@@ -1,8 +1,26 @@
 <script setup>
+import { useRoute } from 'vue-router';
+import {onMounted, ref, watch} from "vue";
 const tabs = [
-  { name: 'Products', href: '/', current: true },
-  { name: 'Recipes', href: '/recipes', current: false },
+  { name: 'Products', href: '/'},
+  { name: 'Recipes', href: '/recipes'},
 ]
+const currentPath = ref('');
+
+onMounted(() => {
+  console.log(useRoute().path)
+  // Set the initial value
+  currentPath.value = useRoute().path;
+
+  watch(
+      () => useRoute().path,
+      (newPath, oldPath) => {
+        currentPath.value = newPath;
+        console.log(currentPath.value)
+      }
+  );
+});
+
 </script>
 
 <template>
@@ -12,8 +30,8 @@ const tabs = [
     </div>
     <div class="flex justify-center items-center z-10 py-5">
       <div class="border-b border-gray-200 text-xl">
-        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-          <a v-for="tab in tabs" :key="tab.name" :href="tab.href" :class="[tab.current ? 'border-indigo-500 text-blue-200' : 'border-transparent text-black hover:border-gray-300 hover:text-gray-700', 'whitespace-nowrap border-b-2 py-4 px-1 font-medium']" :aria-current="tab.current ? 'page' : undefined">{{ tab.name }}</a>
+        <nav class="-mb-px flex gap-8" aria-label="Tabs">
+          <a v-for="tab in tabs" :key="tab.name" :href="tab.href" :class="[tab.href === useRoute().path ? 'border-black text-black font-bold' : 'border-transparent text-black hover:border-gray-300 hover:text-gray-700', 'whitespace-nowrap border-b-2 py-4 px-1 font-medium']">{{ tab.name }}</a>
         </nav>
       </div>
     </div>
