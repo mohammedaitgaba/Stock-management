@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Recipe;
 
-use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +18,8 @@ class ReciepeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'products' => ProductCollection::collection($this->whenLoaded('products')),
+            'products' => ProductResource::collection($this->whenLoaded('products')),
+
         ];
     }
 }

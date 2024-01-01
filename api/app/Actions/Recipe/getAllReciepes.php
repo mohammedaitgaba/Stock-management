@@ -8,6 +8,6 @@ class getAllReciepes
 {
     public function execute()
     {
-        return Recipe::query()->get();
+        return Recipe::with('products')->get();
     }
 }

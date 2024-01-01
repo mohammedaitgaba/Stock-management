@@ -8,6 +8,8 @@ use App\Http\Requests\StoreRecipeRequest;
 use App\Http\Resources\Recipe\ReciepeCollection;
 use App\Models\Recipe;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
@@ -30,17 +32,13 @@ class RecipeController extends Controller
     {
         DB::beginTransaction();
         try {
-            $recipe = Recipe::query()->findOrFail($recipe);
-            $productIds = $request->validated()->input('product_ids');
-            if ($recipe) {
-                $newRecipe->execute($productIds);
-            }
+            $newRecipe->execute($recipe, $request->validated());
             DB::commit();
 
             return response()->json(['message' => 'created successfully'], 201);
         } catch (Exception $e) {
             DB::rollback();
-            return response()->json(['message' => 'an error happened while creating recipe'], 500);
+            return response()->json(['message' => 'an error happened while creating recipe' . $e], 500);
         }
 
     }

@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable=[
+
+    protected $fillable = [
         'name',
         'description',
         'quantity',
@@ -17,8 +18,8 @@ class Product extends Model
         'expiring_date'
     ];
 
-    public function recipe(): BelongsTo
+    public function recipes(): BelongsToMany
     {
-        return $this->belongsTo(Recipe::class);
+        return $this->belongsToMany(Recipe::class,'recipe_products');
     }
 }

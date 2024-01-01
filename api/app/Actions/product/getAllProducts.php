@@ -9,6 +9,6 @@ class getAllProducts
 {
     public function execute(): Collection|array
     {
-        return Product::query()->get();
+        return Product::query()->with('recipes')->get();
     }
 }

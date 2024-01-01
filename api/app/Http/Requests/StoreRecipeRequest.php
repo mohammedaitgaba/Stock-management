@@ -12,7 +12,7 @@ class StoreRecipeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,11 +22,10 @@ class StoreRecipeRequest extends FormRequest
      */
     public function rules(): array
     {
-        dd('rg');
-
         return [
-            'product_ids' => 'required|array',
-            'product_ids.*' => 'exists:products,id',
+            'products_info' => 'required|array',
+            'products_info.*.product_id' => 'required|exists:products,id',
+            'products_info.*.quantity' => 'required|integer|min:1',
         ];
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Recipe::class)->constrained();
             $table->foreignIdFor(Product::class)->constrained();
+            $table->integer('quantity')->default(1);
             $table->timestamps();
         });
     }

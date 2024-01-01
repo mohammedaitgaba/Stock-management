@@ -33,5 +33,5 @@ Route::prefix('products')->controller(ProductController::class)
 Route::prefix('recipes')->controller(RecipeController::class)
     ->name('recipes.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('/{recipe_id}', 'store')->name('store');
+        Route::post('/{recipe}', 'store')->name('store');
     });
