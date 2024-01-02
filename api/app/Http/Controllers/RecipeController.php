@@ -8,8 +8,6 @@ use App\Http\Requests\StoreRecipeRequest;
 use App\Http\Resources\Recipe\ReciepeCollection;
 use App\Models\Recipe;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +24,10 @@ class RecipeController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * @param StoreRecipeRequest $request
+     * @param storeNewRecipe $newRecipe
+     * @param Recipe $recipe
+     * @return JsonResponse
      */
     public function store(StoreRecipeRequest $request, storeNewRecipe $newRecipe, Recipe $recipe): JsonResponse
     {
