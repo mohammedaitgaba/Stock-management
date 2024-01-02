@@ -15,7 +15,7 @@ a small project to handle stock of products and recieps
 In the project i've used a pattern called Actions in Action, that follow the next flow route->controller->action.
 The advantage of this structer is to avoid the "Monster class"... .  
 if you are intrested in this pattern you can find more info in this blog : 
-[Blog link]([https://www.example.com](https://martinjoo.dev/domain-driven-design-with-laravel-actions-in-action))
+[Blog link](https://martinjoo.dev/domain-driven-design-with-laravel-actions-in-action)
 
 ## API Requests
 
