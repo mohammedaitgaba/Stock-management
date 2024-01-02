@@ -21,12 +21,22 @@ const getAllProducts = async ()=>{
 function getFirst30Characters(text) {
   return text.substring(0, 30);
 }
+const getCurrentDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const formData = ref({
   product_id:null,
   quantity:0,
   weight:0,
-  expiring_date:null
+  expiring_date:getCurrentDate()
 })
+
+
 const submit = async ()=>{
   await axios.put(`http://127.0.0.1:8000/api/products/${formData.value.product_id}`,formData.value)
       .then(res=>{
@@ -62,7 +72,7 @@ const submit = async ()=>{
           <h2 class="text-center text-xl">Add product</h2>
           <div>
             <label for="Product" class="block text-sm font-medium leading-6 text-gray-900">Product</label>
-            <select id="location"  name="location" required  v-model="formData.product_id" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <select id="product"  name="product" required  v-model="formData.product_id" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
               <option v-for="product in products" :value="product.id">{{ product.name}}</option>
             </select>
           </div>
@@ -98,6 +108,7 @@ const submit = async ()=>{
               <input
                   type="date"
                   name="date"
+                  :min="getCurrentDate()"
                   v-model="formData.expiring_date"
                   class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   required
